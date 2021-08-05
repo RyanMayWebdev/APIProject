@@ -22,6 +22,8 @@ app.apiCall = (genre) =>{
                     }
         
     }).then((res)=>{
+        let wrapper = $('.wrapper')
+        wrapper.empty()
         let results = res.results
         results.forEach((index)=>{
             let resultHTML = 
@@ -30,7 +32,7 @@ app.apiCall = (genre) =>{
                                 <img src='https://image.tmdb.org/t/p/w500${index.poster_path}' alt='${index.title} poster'>
                                 <p>${index.overview}</p>
                             </div>`
-            $('.wrapper').append(resultHTML)
+            wrapper.append(resultHTML)
         })
 
     })
