@@ -5,8 +5,9 @@ app.getGenre = ()=>{
        e.preventDefault()
        let genre = $('#movie-genre').val()
        let newRelease = $('#newRelease').prop('checked')
-       console.log(newRelease)
-       app.apiCall(genre,newRelease)
+       $('.wrapper').empty()
+       $('.wrapper').append(`<img src='./Assets/popcorn.gif'>`)
+       setTimeout(()=>app.apiCall(genre,newRelease),3000)
    })
 }
 
@@ -37,7 +38,7 @@ app.apiCall = (genre,recent) =>{
             let resultHTML = 
                             `<div class='result'>
                                 <h2>${index.title}</h2>
-                                <img src='https://image.tmdb.org/t/p/w500${index.poster_path}' alt='${index.title} poster'>
+                                <img class='movie-img' src='https://image.tmdb.org/t/p/w500${index.poster_path}' alt='${index.title} poster'>
                                 <p>${index.overview}</p>
                             </div>`
             wrapper.append(resultHTML)
