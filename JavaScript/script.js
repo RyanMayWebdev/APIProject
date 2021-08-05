@@ -17,7 +17,6 @@ app.apiCall = (genre,recent) =>{
         let year = new Date()
         releaseYear = year.getFullYear()
     }
-    console.log(releaseYear)
     $.ajax({
         url: `https://api.themoviedb.org/3/discover/movie?api_key=31beca076158503c129b3c1228e56ad2`,
                     method : 'GET',
@@ -31,6 +30,7 @@ app.apiCall = (genre,recent) =>{
                     }
         
     }).then((res)=>{
+        console.log(res.results)
         let wrapper = $('.wrapper')
         wrapper.empty()
         let results = res.results
@@ -40,6 +40,7 @@ app.apiCall = (genre,recent) =>{
                                 <h2>${index.title}</h2>
                                 <img class='movie-img' src='https://image.tmdb.org/t/p/w500${index.poster_path}' alt='${index.title} poster'>
                                 <p>${index.overview}</p>
+                                <p>Rated: ${index.vote_average}/10</p>
                             </div>`
             wrapper.append(resultHTML)
         })
