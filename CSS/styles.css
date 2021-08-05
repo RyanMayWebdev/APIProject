@@ -1,0 +1,31 @@
+form{
+    margin: 0 auto;
+    min-width: 300px;
+    text-align: center;
+    width: 50vw
+}
+
+
+h2{
+    height: 60px;
+}
+
+img{
+    width: 300px;
+}
+
+p{
+    width: 75%;
+}
+
+.result{
+    width: 300px;
+}
+
+.wrapper{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 0 auto;
+    width: 90vw
+}
