@@ -3,16 +3,17 @@ const app = {}
 //variables
 app.key = '31beca076158503c129b3c1228e56ad2'
 
-app.resultHTML = (index) => {
+app.resultHTML = (element) => {
     return `<div class='result'>
-        <h2>${index.title}</h2>
-        <img class='movie-img' src='https://image.tmdb.org/t/p/w500${index.poster_path}' alt='${index.title} poster'>
+        <h2>${element.title}</h2>
+        <img class='movie-img' src='https://image.tmdb.org/t/p/w500${element.poster_path}' alt='${element.title} poster'>
         <div class='details-wrapper'>
-            <p>${index.overview}</p>
-            <p>Rated: ${index.vote_average}/10</p>
-            <button class='trailer-btn' id="${index.id}" type='button'>View Trailer</button>
+            <p class="description">${element.overview}</p>
+            <p>Rated: ${element.vote_average}/10</p>
+            <button class='trailer-btn' id="${element.id}" type='button'>View Trailer</button>
         </div>
     </div>`
+
 }
 
 //functions
@@ -21,10 +22,10 @@ app.resultHTML = (index) => {
 app.getSelections = () => {
     $('form').on('submit', (e) => {
         e.preventDefault()
-        let genre = $('#movie-genre').val()
-        let newRelease = $('#newRelease').prop('checked')
-        let releaseYear = $('#release-year').val()
-        let title = $('#title-search').val()
+        const genre = $('#movie-genre').val(),
+            newRelease = $('#newRelease').prop('checked'),
+            releaseYear = $('#release-year').val(),
+            title = $('#title-search').val()
         $('.wrapper').empty()
         $('.wrapper').append(`<img src='./Assets/popcorn.gif'>`)
         if (title != '') {
@@ -36,11 +37,11 @@ app.getSelections = () => {
 
 //Display results function
 app.displayResults = (res) => {
-    let wrapper = $('.wrapper')
-    let results = res.results
+    const wrapper = $('.wrapper'),
+        results = res.results
     wrapper.empty()
-    results.forEach((index) => {
-        wrapper.append(app.resultHTML(index))
+    results.forEach((element) => {
+        wrapper.append(app.resultHTML(element))
     })
 }
 
@@ -49,7 +50,7 @@ app.apiCall = (genre, recent, year) => {
 
     //if user wants a new release set the release year to the current year
     if (recent == true) {
-        let currentYear = new Date()
+        const currentYear = new Date()
         year = currentYear.getFullYear()
     }
 
@@ -92,30 +93,27 @@ app.apiCallSearch = (search) => {
 app.viewTrailer = function () {
     $('.wrapper').on('click', '.trailer-btn', function () {
 
-        let movieId = $(this).prop('id')
+        const movieId = $(this).prop('id')
 
         $.ajax({
             url: `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${app.key}&language=en-US`,
             method: 'GET',
             dataType: 'json',
         }).then((res) => {
-            let overlay = '<div class="video-overlay"><div>'
+            const overlay = '<div class="video-overlay"><div>'
             let videoHtml
-            console.log(res)
             //If the movie does not have a video display no video text
             if (res.results.length == 0) {
                 videoHtml =
                     `<div class="video-player">
                         <div class='no-trailer'><p>No trailer available</p></div>
-                        <span class="icon">X</span>
                     </div>`
             } else {
-                let site = res.results[0].site
-                let key = res.results[0].key
+                const site = res.results[0].site,
+                    key = res.results[0].key
                 if (site === 'YouTube') {
                     videoHtml = `
                     <div class="video-player">
-                    <span class="icon">X</span>
                         <iframe class='video-frame' src='https://www.youtube.com/embed/${key}'>
                         </iframe>
                     </div>`
@@ -126,7 +124,7 @@ app.viewTrailer = function () {
             $('body').append(overlay)
             $('body').append(videoHtml)
             //When user clicks the x icon, remove video player and overlay
-            $('body').on('click', '.icon', () => {
+            $('body').on('click','.video-overlay',()=>{
                 $('.video-player').remove()
                 $('.video-overlay').remove()
             })
@@ -134,6 +132,7 @@ app.viewTrailer = function () {
         })
     })
 }
+
 
 app.init = () => {
     app.getSelections()
