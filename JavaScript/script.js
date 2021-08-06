@@ -116,7 +116,7 @@ app.viewTrailer = function () {
                     videoHtml = `
                     <div class="video-player">
                     <span class="icon">X</span>
-                        <iframe width="420" height="315" src='https://www.youtube.com/embed/${key}'>
+                        <iframe class='video-frame' src='https://www.youtube.com/embed/${key}'>
                         </iframe>
                     </div>`
                 }

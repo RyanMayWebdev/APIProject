@@ -32,8 +32,8 @@ h2{
 }
 
 .icon{
-    position: relative;
     left: 440px;
+    position: relative;
     top: -320px;
 }
 
@@ -97,8 +97,28 @@ h2{
     top: 25%;
     z-index: 150;
 }
+
+.video-frame{
+    height: 315px;
+    width: 420px;
+}
 @media(max-width:768px){
     img{
         width: 300px;
+    }
+}
+
+@media(max-width: 500px){
+    .icon{
+        left: 300px;
+        position: relative;
+        top: -300px;
+    }
+    .video-frame{
+        height: 280px;
+        width: 280px;
+    }
+    .video-player{
+        right: 15px;
     }
 }
