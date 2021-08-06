@@ -2,9 +2,9 @@ body{
     background-image: -webkit-radial-gradient(#030033,#000000);
     color: #e6e6e6;
     font-family: 'Georama', sans-serif;
-    height: 100vh;
     line-height: 1.5;
     overflow-x: hidden;
+    position: relative;
     text-align: center;
 }
 
@@ -31,14 +31,25 @@ h2{
     height: 60px;
 }
 
+.icon{
+    position: relative;
+    left: 440px;
+    top: -320px;
+}
 
 .movie-img{
     height: 450px;
 }
 
-p{
+.no-trailer{
+    height: 315px;
+    margin: 0 auto;
+    width: 420px;
+}
+
+.details-wrapper{
     display: none;
-    margin: 25% 0;
+    margin: 50px 0 0;
 }
 .result{
     margin: 0 25px;
@@ -53,9 +64,10 @@ p{
     width: 90vw
 }
 
-.result:hover p{
+.result:hover .details-wrapper{
     align-items: center;
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
@@ -63,6 +75,28 @@ p{
     display: none;
 }
 
+.selection-wrapper{
+    display: block;
+}
+
+.video-overlay{
+    background-color: rgba(0, 0, 0, 0.562);
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index:  100;
+}
+
+.video-player{
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 25%;
+    z-index: 150;
+}
 @media(max-width:768px){
     img{
         width: 300px;

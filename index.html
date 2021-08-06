@@ -8,13 +8,15 @@
     <title>Movie Reel</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Georama:wght@700&family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Georama:wght@700&family=Montserrat&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="CSS/styles.css">
 </head>
 
 <body>
-    <form action="#">
+    <form action="">
         <h1>What Movie Should I Watch?</h1>
+        <h3>Fill out any applicable fields below or search for a title</h3>
         <label for="movie-genre">Genre:</label>
         <select name="movie-genre" id="movie-genre">
             <option value="28">Action</option>
@@ -32,17 +34,26 @@
             <option value="878">Sci Fi</option>
             <option value="53">Thriller</option>
         </select>
-        <label for="newRelease">New Release?</label>
-        <input type="checkbox" name="newRelease" id="newRelease">
+        <div class="selection-wrapper">
+            <label for="release-year">Release Year:</label>
+            <input type="text" name="release-year" id="release-year" placeholder="ex. 2015">
+        </div>
+        <div class="selection-wrapper">
+            <label for="newRelease">New Release?</label>
+            <input type="checkbox" name="newRelease" id="newRelease">
+        </div>
+        <div class="selection-wrapper">
+            <label for="title-search">Search by title:</label>
+            <input type="text" name="title-search" id="title-search" placeholder="full or partial title">
+        </div>
         <button type="submit">Lights, Camera, Action!</button>
     </form>
     <section class='wrapper'>
-
     </section>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="JavaScript/script.js">
-</script>
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="JavaScript/script.js">
+    </script>
 </body>
 
 
