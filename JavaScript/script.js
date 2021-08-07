@@ -67,7 +67,6 @@ app.apiCall = (genre, recent, year) => {
         }
 
     }).then((res) => {
-        console.log(res)
         app.displayResults(res)
     })
 }
