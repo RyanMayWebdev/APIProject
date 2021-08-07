@@ -32,7 +32,7 @@ button,select,p {
 
 button{
     background-color: #ffc24c;
-    background-image: -webkit-linear-gradient(90deg,#ffc24c, rgb(255, 213, 149));
+    background-image: -webkit-linear-gradient(90deg,#ffc24c, #ffd595);
     border: none;
     border-radius: 5px;
     cursor:pointer;
@@ -48,8 +48,11 @@ button:hover {
 }
 
 .details-wrapper{
+    max-height: 450px;
     opacity: 0%;
+    overflow-y: scroll;
     position: absolute;
+    scrollbar-color: rgba(255, 255, 255, 0.295) rgba(0, 0, 133, 0) !important;
     top: 100px;
 }
 
@@ -72,6 +75,8 @@ form{
 
 h2{
     height: 60px;
+    font-size: 20px;
+    line-height: 1;
 }
 
 
@@ -107,12 +112,24 @@ label{display: block;}
     display: none;
 }
 
+.result:hover h2{
+    display: none;
+}
+
 .selection-wrapper{
     display: block;
     margin: 10px 0;
     width: 200px;
 }
 
+::-webkit-scrollbar-thumb{
+    color: rgba(255, 255, 255, 0.295);
+    background-color: rgba(255, 255, 255, 0.295);
+}
+
+::-webkit-scrollbar{
+    visibility: hidden;
+}
 
 p{
     font-size: 14px;
