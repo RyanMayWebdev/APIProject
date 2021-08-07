@@ -4,16 +4,16 @@ const app = {}
 app.key = '31beca076158503c129b3c1228e56ad2'
 
 app.resultHTML = (element) => {
-    return `<div class='result'>
-        <h2>${element.title}</h2>
-        <img class='movie-img' src='https://image.tmdb.org/t/p/w500${element.poster_path}' alt='${element.title} poster'>
-        <div class='details-wrapper'>
-            <p class="description">${element.overview}</p>
-            <p>Rated: ${element.vote_average}/10</p>
-            <button class='trailer-btn' id="${element.id}" type='button'>View Trailer</button>
-        </div>
-    </div>`
-
+    return `
+        <div class='result'>
+            <h2>${element.title}</h2>
+            <img class='movie-img' src='https://image.tmdb.org/t/p/w500${element.poster_path}' alt='${element.title} poster'>
+            <div class='details-wrapper'>
+                <p class="description">${element.overview}</p>
+                <p>Rated: ${element.vote_average}/10</p>
+                <button class='trailer-btn' id="${element.id}" type='button'>View Trailer</button>
+            </div>
+        </div>`
 }
 
 //functions
@@ -22,26 +22,26 @@ app.resultHTML = (element) => {
 app.getSelections = () => {
     $('form').on('submit', (e) => {
         e.preventDefault()
-        const genre = $('#movie-genre').val(),
-            newRelease = $('#newRelease').prop('checked'),
-            releaseYear = $('#release-year').val(),
-            title = $('#title-search').val()
+        const $genre = $('#movie-genre').val(),
+            $newRelease = $('#newRelease').prop('checked'),
+            $releaseYear = $('#release-year').val(),
+            $title = $('#title-search').val()
         $('.wrapper').empty()
         $('.wrapper').append(`<img src='./Assets/popcorn.gif'>`)
-        if (title != '') {
-            setTimeout(() => app.apiCallSearch(title), 3000)
+        if ($title != '') {
+            setTimeout(() => app.apiCallSearch($title), 3000)
         } else
-            setTimeout(() => app.apiCall(genre, newRelease, releaseYear), 3000)
+            setTimeout(() => app.apiCall($genre, $newRelease, $releaseYear), 3000)
     })
 }
 
 //Display results function
 app.displayResults = (res) => {
-    const wrapper = $('.wrapper'),
+    const $wrapper = $('.wrapper'),
         results = res.results
-    wrapper.empty()
+    $wrapper.empty()
     results.forEach((element) => {
-        wrapper.append(app.resultHTML(element))
+        $wrapper.append(app.resultHTML(element))
     })
 }
 
@@ -67,6 +67,7 @@ app.apiCall = (genre, recent, year) => {
         }
 
     }).then((res) => {
+        console.log(res)
         app.displayResults(res)
     })
 }
@@ -93,10 +94,10 @@ app.apiCallSearch = (search) => {
 app.viewTrailer = function () {
     $('.wrapper').on('click', '.trailer-btn', function () {
 
-        const movieId = $(this).prop('id')
+        const $movieId = $(this).prop('id')
 
         $.ajax({
-            url: `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${app.key}&language=en-US`,
+            url: `https://api.themoviedb.org/3/movie/${$movieId}/videos?api_key=${app.key}&language=en-US`,
             method: 'GET',
             dataType: 'json',
         }).then((res) => {
@@ -124,7 +125,7 @@ app.viewTrailer = function () {
             $('body').append(overlay)
             $('body').append(videoHtml)
             //When user clicks the x icon, remove video player and overlay
-            $('body').on('click','.video-overlay',()=>{
+            $('body').on('click', '.video-overlay', () => {
                 $('.video-player').remove()
                 $('.video-overlay').remove()
             })
