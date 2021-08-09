@@ -2,37 +2,39 @@ const app = {}
 
 //variables
 app.key = '31beca076158503c129b3c1228e56ad2'
-
-app.resultHTML = (element) => {
-    return `
-        <div class='result'>
-            <h2>${element.title}</h2>
-            <img class='movie-img' src='https://image.tmdb.org/t/p/w500${element.poster_path}' alt='${element.title} poster'>
-            <div class='details-wrapper'>
-                <p class="description">${element.overview}</p>
-                <p>Rated: ${element.vote_average}/10</p>
-                <button class='trailer-btn' id="${element.id}" type='button'>View Trailer</button>
-            </div>
-        </div>`
-}
-
+app.$genre = $('#movie-genre')
+app.$newRelease = $('#newRelease')
+app.$releaseYear = $('#release-year')
+app.$title = $('#title-search')
 //functions
 
 //Get user selections upon form submit and then run the appropriate API call function
 app.getSelections = () => {
     $('form').on('submit', (e) => {
         e.preventDefault()
-        const $genre = $('#movie-genre').val(),
-            $newRelease = $('#newRelease').prop('checked'),
-            $releaseYear = $('#release-year').val(),
-            $title = $('#title-search').val()
         $('.wrapper').empty()
         $('.wrapper').append(`<img src='./Assets/popcorn.gif'>`)
-        if ($title != '') {
-            setTimeout(() => app.apiCallSearch($title), 3000)
-        } else
-            setTimeout(() => app.apiCall($genre, $newRelease, $releaseYear), 3000)
+        if (app.$title.val() != '') {
+            setTimeout(() => app.apiCallSearch(app.$title.val()), 3000)
+        } else{
+            setTimeout(() => app.apiCall(app.$genre.val(), app.$newRelease.prop('checked'), app.$releaseYear.val()), 3000)
+        }
     })
+}
+
+app.resultHTML = (element) => {
+    return `
+        <div class='result'>
+            <h2>${element.title}</h2>
+            <div class="img-container">
+                <img class='movie-img' src='https://image.tmdb.org/t/p/w500${element.poster_path}' alt="${element.title} poster">
+            </div>
+            <div class='details-wrapper'>
+                <p class="description">${element.overview}</p>
+                <p>Rated: ${element.vote_average}/10</p>
+                <button class='trailer-btn' id="${element.id}" type='button'>View Trailer</button>
+            </div>
+        </div>`
 }
 
 //Display results function
@@ -43,9 +45,14 @@ app.displayResults = (res) => {
     results.forEach((element) => {
         $wrapper.append(app.resultHTML(element))
     })
+    app.$newRelease.prop('checked', false)
+    app.$title.val('')
+    app.$genre.val('')
+    app.$releaseYear.val('')
+
 }
 
-//API call for mvoies by genre and release year
+//API call for movies by genre and release year
 app.apiCall = (genre, recent, year) => {
 
     //if user wants a new release set the release year to the current year
