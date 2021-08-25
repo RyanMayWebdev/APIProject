@@ -16,7 +16,7 @@ app.getSelections = () => {
         $('.wrapper').append(`<img src='./Assets/popcorn.gif'>`)
         if (app.$title.val() != '') {
             setTimeout(() => app.apiCallSearch(app.$title.val()), 3000)
-        } else{
+        } else {
             setTimeout(() => app.apiCall(app.$genre.val(), app.$newRelease.prop('checked'), app.$releaseYear.val()), 3000)
         }
     })
@@ -42,23 +42,26 @@ app.displayResults = (res) => {
     const $wrapper = $('.wrapper'),
         results = res.results
     $wrapper.empty()
-    results.forEach((element) => {
-        $wrapper.append(app.resultHTML(element))
-    })
-    app.$newRelease.prop('checked', false)
-    app.$title.val('')
-    app.$genre.val('')
-    app.$releaseYear.val('')
-
+    if (res.results.length === 0) {
+        $('.wrapper').html(`<h2>No Results Found</h2>`)
+    } else {
+        results.forEach((element) => {
+            $wrapper.append(app.resultHTML(element))
+        })
+        app.$newRelease.prop('checked', false)
+        app.$title.val('')
+        app.$genre.val('')
+        app.$releaseYear.val('')
+    }
 }
 
 //API call for movies by genre and release year
 app.apiCall = (genre, recent, year) => {
-
+    let selectedYear = year;
     //if user wants a new release set the release year to the current year
     if (recent == true) {
         const currentYear = new Date()
-        year = currentYear.getFullYear()
+        selectedYear = currentYear.getFullYear()
     }
 
     $.ajax({
@@ -70,7 +73,7 @@ app.apiCall = (genre, recent, year) => {
             'vote_count.gte': 100,
             sort_by: 'vote_average.desc',
             with_genres: genre,
-            primary_release_year: year
+            primary_release_year: selectedYear
         }
 
     }).then((res) => {
